@@ -3,7 +3,7 @@
 import { count, e, evaluate, forEach } from "mathjs"
 import styles from "./page.module.css";
 import buttonTypes from "../components/button/boton.module.css";
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 import Barra from "../components/Barra"
 import Boton from "../components/button/Boton";
@@ -11,6 +11,7 @@ import Modal from "../components/modal/Modal";
 import Entrada from "../components/input/Entrada";
 import Columna from "../components/columna/Columna";
 import Lote from "../components/lote/Lote";
+import BarGraph from "../components/bargraph/BarGraph";
 
 function generateRandomExpression() {
   const operators = ['+', '-', '*', '/', '%'];
@@ -83,6 +84,7 @@ export default function Aplicacion() {
   // --------------------
   const [memory, setMemory] = useState([])
   const [keyPressed, setKeyPressed] = useState()
+  const [allProcess, setAllProcess] = useState([])
 
   let auxCounter = globalCounter;
 
@@ -173,7 +175,8 @@ export default function Aplicacion() {
       l.push(new Proceso(generateRandomExpression(), generateRandomNumber(), global_counter))
       global_counter++;
     }
-    setLotes(l)
+    setLotes([...l])
+    setAllProcess([...l])
   }
 
   const handleKeyDown = (event) => {
@@ -341,6 +344,11 @@ export default function Aplicacion() {
               )) : null}
             </div>
           </>
+          <BarGraph 
+            array = {allProcess} 
+            currentId={current ? current.id : null} 
+            finished={processed}
+          />
         </div>
 
         <Columna title={"Terminados"}>
@@ -355,5 +363,6 @@ export default function Aplicacion() {
 
       </div>
     </div>
+    
   )
 }
