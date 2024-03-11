@@ -4,13 +4,13 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 const BarGraph = ({array, currentId, finished}) =>{
-    const sorted = array.sort((a, b) => b.id - a.id);
+    let sorted = [...array].reverse();
 
     const labels = sorted.map(process => process.id);
 
     const finishedLabels = finished.map(process => process.id);
 
-    const tmeValues = array.map(process => process.tme);
+    const tmeValues = sorted.map(process => process.tme);
     
     const getColor = (id) => {
         if(id === currentId){
