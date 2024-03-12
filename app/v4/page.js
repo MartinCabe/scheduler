@@ -86,10 +86,10 @@ export default function Aplicacion() {
   const [keyPressed, setKeyPressed] = useState()
   const [allProcess, setAllProcess] = useState([])
   const [trigger3, setTrigger3] = useState(false)
-  const [quantumCounter, setQuantumCounter] = useState(1);
+  const [quantumCounter, setQuantumCounter] = useState(0);
 
   let auxCounter = globalCounter;
-  const quantum = 3;
+  const quantum = 2;
   let auxQuantum = quantumCounter;
 
   const agregar_procesos = () => {
@@ -271,9 +271,9 @@ export default function Aplicacion() {
     if(current != null){
       let localized = current;
       if(localized.eta > quantum){
-        localized.eta = countdown;
         setLotes([...lotes, current]);
         //setCountdown(0);
+        localized.eta = countdown - 1;
         setInterrupted(true);
         let localAll = allProcess;
         let index = localAll.indexOf(localized);
@@ -297,24 +297,21 @@ export default function Aplicacion() {
       //localized = current;
       const timer = setTimeout(() => {
         auxCounter++;
-        //auxQuantum++;
-        setGlobalCounter(auxCounter);
         setQuantumCounter(quantumCounter + 1);
-        if (countdown > 1) {
-          console.log(quantumCounter);
-          if (quantumCounter % quantum == 0 && quantumCounter !== 0 && memory.length != 0){
-            //console.log("AAAAAAAA")
-            setTrigger3(!trigger3);
-            //setQuantumCounter(0);
-            //auxQuantum = 0;
-          }
-          setCountdown(countdown - 1); // Decrease the countdown by 1
+        setGlobalCounter(auxCounter);
+        if(quantumCounter == (quantum - 1) && memory.length != 0){
+          setTrigger3(!trigger3);
+          setQuantumCounter(0);
         }
-        else{
-            //console.log("AAAAAAAA")
-            setTrigger(!trigger);
-            setCurrent(null);
+        else if (countdown > 1) {
+          setCountdown(countdown - 1); // Decrease the countdown by 1 
         }
+        if (countdown <= 1){
+          setTrigger(!trigger);
+          setCurrent(null);
+          setQuantumCounter(0);
+        }
+        
       }, 1000); // Delay of 1000 milliseconds (1 second) for each countdown iteration
 
       // Clear the timeout if the component unmounts or if the countdown reaches 0
