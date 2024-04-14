@@ -111,7 +111,7 @@ export default function Aplicacion() {
   }
 
   function findNextProcess(memoryArray, batchArray){
-    const combinedArray = batchArray.concat(memoryArray);
+    const combinedArray = memoryArray.concat(batchArray);
     let smallest = combinedArray[0];
     for (let i = 0; i < combinedArray.length; i++){
       if (combinedArray[i].eta < smallest.eta){
