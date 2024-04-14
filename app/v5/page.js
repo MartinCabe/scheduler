@@ -87,6 +87,7 @@ export default function Aplicacion() {
   const [keyPressed, setKeyPressed] = useState()
   const [allProcess, setAllProcess] = useState([])
   const [newSmaller, setNewSmaller] = useState(false);
+  const [orden, setOrden] = useState([]);
 
   let auxCounter = globalCounter;
 
@@ -158,6 +159,8 @@ export default function Aplicacion() {
       setCountdown(current_process.eta);
       setCurrent(current_process);
       setProcessing(current_process);
+      setOrden([...orden, current_process.id]);
+      console.log(orden);
     } else {
       setStarted(false)
     }
