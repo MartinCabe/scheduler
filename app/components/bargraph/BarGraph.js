@@ -3,7 +3,7 @@ import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
 
-const BarGraph = ({array, currentId, finished}) =>{
+const BarGraph = ({array, currentId, finished, altCurrentId}) =>{
     let sorted = [...array].reverse();
 
     const labels = sorted.map(process => process.id);
@@ -13,6 +13,9 @@ const BarGraph = ({array, currentId, finished}) =>{
     const tmeValues = sorted.map(process => process.tme);
     
     const getColor = (id) => {
+        if(id === altCurrentId){
+            return 'rgba(255, 0, 0, 0.8)';
+        }
         if(id === currentId){
             return 'rgba(255, 0, 0, 0.8)';
         }
