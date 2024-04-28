@@ -138,13 +138,14 @@ export default function Aplicacion() {
         let toBeAdded_process = lotes[0];
         toBeAdded_process.tiempo_llegada = globalCounter;
         new_memory.push(toBeAdded_process)
+        setLotes(lotes.slice(1));
       };
 
       setMemory(new_memory);
 
       
 
-      setLotes(lotes.slice(1));
+      
       
       if(current_process.tiempo_respuesta == null) current_process.tiempo_respuesta = globalCounter; 
       setCurrent(current_process);
@@ -168,14 +169,16 @@ export default function Aplicacion() {
       
 
       if(lotes.length > 0 && altMemory.length < 4) {
+        console.log("lol")
         let toBeAdded_process = lotes[0];
         toBeAdded_process.tiempo_llegada = globalCounter;
         alt_new_memory.push(toBeAdded_process)
+        setLotes(lotes.slice(1));
       };
 
       setAltMemory(alt_new_memory);
 
-      setLotes(lotes.slice(1));
+      
       
       if(current_process.tiempo_respuesta == null) current_process.tiempo_respuesta = globalCounter; 
       setAltCurrent(current_process);
